@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-Por fim sobreponha função didChangeDependencies na sua Splash Screen e chame a função initConfig.
+Por fim sobreponha a função didChangeDependencies na sua Splash Screen e chame a função initConfig.
 
 ``` dart
 @override
