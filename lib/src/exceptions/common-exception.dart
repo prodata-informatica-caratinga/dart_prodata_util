@@ -1,5 +1,5 @@
 import 'package:dart_prodata_util/src/dialogs/generic-dialogs.dart';
-import 'package:dart_prodata_util/src/snackbars/rounded-snackbar.dart';
+import 'package:dart_prodata_util/src/dialogs/rounded-snackbar.dart';
 import 'package:flutter/material.dart';
 
 enum MessageType { snackBar, dialog }

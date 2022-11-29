@@ -1,7 +1,7 @@
 import 'package:dart_prodata_util/src/config.dart';
 import 'package:dart_prodata_util/src/dialogs/erro-bottomsheet.dart';
 import 'package:dart_prodata_util/src/models/app-error.dart';
-import 'package:dart_prodata_util/src/snackbars/rounded-snackbar.dart';
+import 'package:dart_prodata_util/src/dialogs/rounded-snackbar.dart';
 import 'package:flutter/material.dart';
 
 class ApiErrorException implements Exception {

@@ -1,4 +1,4 @@
-import 'package:dart_prodata_util/src/snackbars/rounded-snackbar.dart';
+import 'package:dart_prodata_util/src/dialogs/rounded-snackbar.dart';
 import 'package:flutter/material.dart';
 
 enum TypeValidator { email, time }
