@@ -1,7 +1,11 @@
-import 'package:dart_prodata_util/src/config.dart';
+import 'package:dart_prodata_util/src/pro-config.dart';
 import 'package:flutter/material.dart';
 
-customBottomSheet(BuildContext context, {required Widget child, String? title, bool isDismissible = true, String? description, Color? titleColor}) {
+/// Exibe um [BottomSheet] que suporta um [Widget] filho, um título, uma descrição e a cor do título.
+///
+/// Os argumentos [context] e [child] não podem ser nulos.
+showCustomBottomSheet(BuildContext context, {required Widget child, String? title, bool isDismissible = true, String? description, Color? titleColor}) {
+  assert(ProConfig.navigatorKey.currentContext != null, 'Context não encontrado. Verifique se a navigatorKey está definida no MaterialApp.');
   showModalBottomSheet(
     isScrollControlled: true,
     isDismissible: isDismissible,
@@ -27,16 +31,17 @@ Widget _title(BuildContext context, String title, String? description, Color? co
       children: [
         Text(
           title,
-          style: TextStyle(color: color ?? Theme.of(context).primaryColor, fontSize: Config.choseSize(18, 22), fontWeight: FontWeight.w500),
+          style: ProConfig.utilTheme.customBottomSheetTheme.titleStyle.copyWith(
+            color: color,
+          ),
         ),
         const Divider(),
         description != null
           ? Text(
             description,
             textAlign: TextAlign.justify,
-            style: TextStyle(color: Theme.of(context).primaryColor, fontSize: Config.choseSize(14, 16)),
-          )
-          : Container(),
+            style: ProConfig.utilTheme.customBottomSheetTheme.descriptionStyle,
+          ) : Container(),
       ],
     ),
   );

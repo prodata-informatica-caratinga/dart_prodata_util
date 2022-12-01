@@ -1,8 +1,12 @@
 import 'package:dart_prodata_util/src/components/custom-bottomsheet.dart';
-import 'package:dart_prodata_util/src/config.dart';
+import 'package:dart_prodata_util/src/pro-config.dart';
 import 'package:flutter/material.dart';
 
 class CustomLabel extends StatelessWidget {
+  /// Cria um [Widget] que suporta um título, subtítulo, um [Widget] filho e um botão de ajuda, onde será aberto um [showCustomBottomSheet] exibindo o texto informado.
+  ///
+  /// O argumento [title] não pode ser nulo.
+
   final String title;
   String? subtitle;
   Widget? child;
@@ -12,6 +16,7 @@ class CustomLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    assert(ProConfig.navigatorKey.currentContext != null, 'Context não encontrado. Verifique se a navigatorKey está definida no MaterialApp.');
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -19,7 +24,7 @@ class CustomLabel extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Config.utilTheme.customLabelTheme.titleStyle,
+            style: ProConfig.utilTheme.customLabelTheme.titleStyle,
           ),
 
           subtitle != null ? Row(
@@ -29,7 +34,7 @@ class CustomLabel extends StatelessWidget {
                 child: Text(
                   subtitle!,
                   overflow: TextOverflow.ellipsis,
-                  style: Config.utilTheme.customLabelTheme.subtitleStyle,
+                  style: ProConfig.utilTheme.customLabelTheme.subtitleStyle,
                 ),
               ),
             ],
@@ -39,7 +44,7 @@ class CustomLabel extends StatelessWidget {
             InkWell(
               child: const Text('Saiba mais', style: TextStyle(color: Colors.blue)),
               onTap: () {
-                customBottomSheet(help!.context,
+                showCustomBottomSheet(help!.context,
                   title: title,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -57,6 +62,8 @@ class CustomLabel extends StatelessWidget {
 }
 
 class CustomLabelHelp {
+  /// Recebe o context e um texto de ajuda que será exibido no [CustomLabel].
+
   BuildContext context;
   String help;
 

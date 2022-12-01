@@ -2,6 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 
 class UpperCaseTextFormatter extends TextInputFormatter {
+  /// Formata o texto de um [EditableText] convertendo todas as letras para maiúsculas.
+
   @override
   TextEditingValue formatEditUpdate(oldValue, newValue) {
     return TextEditingValue(
@@ -12,6 +14,8 @@ class UpperCaseTextFormatter extends TextInputFormatter {
 }
 
 class LowerCaseTextFormatter extends TextInputFormatter {
+  /// Formata o texto de um [EditableText] convertendo todas as letras para minúsculas.
+
   @override
   TextEditingValue formatEditUpdate(oldValue, newValue) {
     return TextEditingValue(
@@ -22,6 +26,8 @@ class LowerCaseTextFormatter extends TextInputFormatter {
 }
 
 class CharNumberFormatter extends TextInputFormatter {
+  /// Formata o texto de um [EditableText] mantendo apenas as letras e algarismos.
+
   @override
   TextEditingValue formatEditUpdate(oldValue, newValue) {
     String value = newValue.text.replaceAll(RegExp('[^0-9a-zA-Z]+'), '');
@@ -33,6 +39,10 @@ class CharNumberFormatter extends TextInputFormatter {
 }
 
 class CurrencyInputFormatter extends TextInputFormatter {
+  /// Formata o texto de um [EditableText] convertendo para o formado da moeda brasileira.
+  ///
+  /// Ex: R$ 35,00.
+
   final int? maxDigits;
 
   CurrencyInputFormatter({this.maxDigits});

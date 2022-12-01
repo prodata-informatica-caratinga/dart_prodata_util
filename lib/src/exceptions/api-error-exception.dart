@@ -1,11 +1,15 @@
-import 'package:dart_prodata_util/src/config.dart';
+import 'package:dart_prodata_util/src/pro-config.dart';
 import 'package:dart_prodata_util/src/dialogs/erro-bottomsheet.dart';
 import 'package:dart_prodata_util/src/models/app-error.dart';
 import 'package:dart_prodata_util/src/dialogs/rounded-snackbar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+/// Exceção lançada quando ocorre um erro em uma requisição de uma API.
+///
+/// Suporta uma [Response] e uma [customMessage].
 class ApiErrorException implements Exception {
-  final dynamic response;
+  final Response? response;
   final String? customMessage;
 
   ApiErrorException({this.response, this.customMessage});
@@ -19,8 +23,7 @@ class ApiErrorException implements Exception {
     } else {
       appError = AppError.withMessage(customMessage ?? 'Houve uma falha interna no servidor. Contacte o suporte.');
     }
-
-    showErrorBottomSheet(Config.currentContext, appError: appError, onFinish: onFinish);
+    showErrorBottomSheet(ProConfig.currentContext, appError: appError, onFinish: onFinish);
   }
 
   void showSnackBar() {
@@ -37,7 +40,7 @@ class ApiErrorException implements Exception {
       message = 'Falha de segmentação.';
     }
 
-    ScaffoldMessenger.of(Config.currentContext).showSnackBar(roundedSnackBar(
+    ScaffoldMessenger.of(ProConfig.currentContext).showSnackBar(roundedSnackBar(
       message,
       backgroundColor: Colors.red,
       seconds: 3,

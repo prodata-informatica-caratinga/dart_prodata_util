@@ -2,8 +2,11 @@ import 'package:dart_prodata_util/src/components/custom-bottomsheet.dart';
 import 'package:dart_prodata_util/src/models/app-error.dart';
 import 'package:flutter/material.dart';
 
+/// Exibe um [BottomSheet] que faz uso da classe [AppError] para informar um erro. Suporta também um [VoidCallback].
+///
+/// Os argumentos [context] e [appError] não podem ser nulos.
 void showErrorBottomSheet(BuildContext context, {required AppError appError, VoidCallback? onFinish}) {
-  customBottomSheet(
+  showCustomBottomSheet(
     context,
     title: "Falha no envio",
     isDismissible: false,

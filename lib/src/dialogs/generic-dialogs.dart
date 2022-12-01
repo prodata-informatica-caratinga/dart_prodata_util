@@ -1,19 +1,20 @@
-import 'package:dart_prodata_util/src/config.dart';
+import 'package:dart_prodata_util/src/pro-config.dart';
 import 'package:flutter/material.dart';
 
+/// Exibe um [Dialog] que suporta um título e uma mensagem, com um [TextButton] de "Ok" para fechar.
 Future<bool> showInfoDialog(BuildContext context, {String? title, String? message}) async {
   return await showDialog(context: context, builder: (context) => AlertDialog(
-    insetPadding: Config.utilTheme.genericDialogTheme.padding,
-    titlePadding: Config.utilTheme.genericDialogTheme.padding,
+    insetPadding: ProConfig.utilTheme.genericDialogTheme.padding,
+    titlePadding: ProConfig.utilTheme.genericDialogTheme.padding,
 
     title: title != null ? Text(title,
       textAlign: TextAlign.center,
-      style: Config.utilTheme.genericDialogTheme.titleStyle,
+      style: ProConfig.utilTheme.genericDialogTheme.titleStyle,
     ) : null,
 
     content: message != null ? Text(message,
       textAlign: TextAlign.justify,
-      style: Config.utilTheme.genericDialogTheme.messageStyle,
+      style: ProConfig.utilTheme.genericDialogTheme.messageStyle,
     ) : null,
 
     actions: [
@@ -27,14 +28,15 @@ Future<bool> showInfoDialog(BuildContext context, {String? title, String? messag
   ));
 }
 
+/// Exibe um [Dialog] que suporta uma mensagem de confirmação, com dois [TextButton] de "Sim" e "Não" para confirmação de decisão.
 Future<bool> showConfirmDialog(BuildContext context, String message) async {
   return await showDialog(context: context, builder: (context) => AlertDialog(
-    titlePadding: Config.utilTheme.genericDialogTheme.padding,
+    titlePadding: ProConfig.utilTheme.genericDialogTheme.padding,
 
     title: Text(
       message,
       textAlign: TextAlign.justify,
-      style: Config.utilTheme.genericDialogTheme.messageStyle,
+      style: ProConfig.utilTheme.genericDialogTheme.messageStyle,
     ),
 
     actions: [

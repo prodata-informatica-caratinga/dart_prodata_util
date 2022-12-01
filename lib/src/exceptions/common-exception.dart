@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 enum MessageType { snackBar, dialog }
 
+/// Exceção lançada quando ocorre erros diversos específicos.
+///
+/// Suporta um [title] e uma [message].
 class CommonException implements Exception {
   final String? title;
   final String message;

@@ -1,3 +1,3 @@
 library common;
 
-export 'src/config.dart';
+export 'src/pro-config.dart';

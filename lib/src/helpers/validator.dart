@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 enum TypeValidator { email, time }
 
 class Validator {
+  /// Cria uma validação para um [TextFormField] ou um [DropdownButtonFormField].
+
   final bool required;
   final double maxValue;
   final double minValue;
@@ -20,6 +22,7 @@ class Validator {
     this.typeValidator,
   });
 
+  /// Executa a validação de um [TextFormField].
   execute(String? value) {
     if ((value == null || value.isEmpty) && required) {
       return "Campo obrigatório.";
@@ -68,6 +71,7 @@ class Validator {
     return null;
   }
 
+  /// Executa uma validação de requerimento para um [DropdownButtonFormField].
   static String? validateDropDown(dynamic value) => value == null ? 'Campo obrigatório.' : null;
 
   static String? equals({required String? value, required String compare, required String errorLabel}) {
@@ -77,6 +81,7 @@ class Validator {
     return null;
   }
 
+  /// Exibe uma [SnackBar] de erro de validação.
   static void showError(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(roundedSnackBar(
       'Preencha os campos corretamente.',

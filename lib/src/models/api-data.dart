@@ -1,4 +1,6 @@
 class ApiData {
+  /// Cria um filtro para ser enviado como [body] em uma requisição de API.
+
   Filters? filters;
   Join? join;
   List<Orders>? orders;

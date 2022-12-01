@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_prodata_util/src/config.dart';
+import 'package:dart_prodata_util/src/pro-config.dart';
 import 'package:dart_prodata_util/src/exceptions/api-error-exception.dart';
 import 'package:dart_prodata_util/src/http/interceptors/logging.dart';
 import 'package:dart_prodata_util/src/models/api-data.dart';
@@ -8,6 +8,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class APIProvider {
+  /// Cria um provedor para requisições em uma API.
+  ///
+  /// Obs: O parâmetro [baseUrl] deve ser configurado na classe [ProConfig].
+
   APIProvider._();
 
   static final APIProvider api = APIProvider._();
@@ -20,8 +24,9 @@ class APIProvider {
     ),
   );
 
+  /// Verifica o status do sevidor da API.
   Future<bool> statusServidor() async {
-    if (Config.baseUrl.isEmpty) {
+    if (ProConfig.baseUrl.isEmpty) {
       throw ApiErrorException(customMessage: 'URL de comunicação com o servidor não definida.');
     }
 
@@ -32,7 +37,7 @@ class APIProvider {
 
     try {
       Response retorno;
-      retorno = await _apiClient.get(Config.baseUrl);
+      retorno = await _apiClient.get(ProConfig.baseUrl);
       if (retorno.statusCode != 200) {
         throw ApiErrorException(response: retorno);
       }
@@ -61,8 +66,9 @@ class APIProvider {
     }
   }
 
+  /// Executa uma requisição [get] na API e retorna a [data] de sua [Response].
   Future<dynamic> get(String url) async {
-    if (Config.baseUrl.isEmpty) {
+    if (ProConfig.baseUrl.isEmpty) {
       throw ApiErrorException(customMessage: 'URL de comunicação com o servidor não definida.');
     }
 
@@ -73,7 +79,7 @@ class APIProvider {
 
     try {
       Response retorno;
-      retorno = await _apiClient.get('$Config.baseUrl/$url');
+      retorno = await _apiClient.get('$ProConfig.baseUrl/$url');
       if (retorno.statusCode != 200 || retorno.data == null) {
         throw ApiErrorException(response: retorno);
       }
@@ -101,19 +107,20 @@ class APIProvider {
     }
   }
 
+  /// Executa uma requisição [post] na API e retorna a [data] de sua [Response].
   Future<dynamic> post(String url, {Map? headers, body, encoding}) async {
     if (_apiClient.interceptors.isEmpty) {
       // se ainda não tiver um interceptor vou adicionar
       _apiClient.interceptors.add(Logging());
     }
 
-    if (Config.baseUrl.isEmpty) {
+    if (ProConfig.baseUrl.isEmpty) {
       throw ApiErrorException(customMessage: 'URL de comunicação com o servidor não definida.');
     }
 
     try {
       Response retorno;
-      retorno = await _apiClient.post('$Config.baseUrl/$url', data: jsonEncode(body));
+      retorno = await _apiClient.post('$ProConfig.baseUrl/$url', data: jsonEncode(body));
       if (retorno.statusCode != 200 || retorno.data == null) {
         throw ApiErrorException(response: retorno);
       }
@@ -128,7 +135,7 @@ class APIProvider {
           e.type == DioErrorType.sendTimeout ||
           e.type == DioErrorType.receiveTimeout ||
           (e.type == DioErrorType.other && e.message.contains('SocketException'))) {
-        throw ApiErrorException(customMessage: 'Servidor não encontrado ou não respondeu. Url: $Config.baseUrl/$url - ${e.message} - ${e.type}');
+        throw ApiErrorException(customMessage: 'Servidor não encontrado ou não respondeu. Url: $ProConfig.baseUrl/$url - ${e.message} - ${e.type}');
       }
 
       throw ApiErrorException(response: e.response);
@@ -141,6 +148,7 @@ class APIProvider {
     }
   }
 
+  /// Executa uma requisição [post] na API com base no [filtro] informado e retorna uma [List] de dados da sua [Response].
   Future<List> getAll(String url, {ApiData? filtro}) async {
     try {
       final dados = ApiData();
@@ -165,19 +173,20 @@ class APIProvider {
     return [];
   }
 
+  /// Executa um [delete] na API com base no [body] informado.
   Future<bool> delete(String url, {Map? headers, body}) async {
     if (_apiClient.interceptors.isEmpty) {
       // se ainda não tiver um interceptor vou adicionar
       _apiClient.interceptors.add(Logging());
     }
 
-    if (Config.baseUrl.isEmpty) {
+    if (ProConfig.baseUrl.isEmpty) {
       throw ApiErrorException(customMessage: 'URL de comunicação com o servidor não definida.');
     }
 
     try {
       Response retorno;
-      retorno = await _apiClient.delete('$Config.baseUrl/$url', data: jsonEncode(body));
+      retorno = await _apiClient.delete('$ProConfig.baseUrl/$url', data: jsonEncode(body));
       if (retorno.statusCode != 200 || retorno.data == null) {
         throw ApiErrorException(response: retorno);
       }
@@ -192,7 +201,7 @@ class APIProvider {
           e.type == DioErrorType.sendTimeout ||
           e.type == DioErrorType.receiveTimeout ||
           (e.type == DioErrorType.other && e.message.contains('SocketException'))) {
-        throw ApiErrorException(customMessage: 'Servidor não encontrado ou não respondeu. Url: $Config.baseUrl/$url - ${e.message} - ${e.type}');
+        throw ApiErrorException(customMessage: 'Servidor não encontrado ou não respondeu. Url: $ProConfig.baseUrl/$url - ${e.message} - ${e.type}');
       }
 
       if (kDebugMode) {

@@ -1,4 +1,6 @@
 class AppError {
+  /// Cria uma formatação de uma mensagem de erro vinda da [API] ou de uma [String] informada.
+
   bool success = false;
   String message = '';
   List<AppErrorDetail> details = [];
